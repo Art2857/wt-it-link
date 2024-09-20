@@ -1,0 +1,35 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nestjs-color-service
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: dbuser
+      DB_PASSWORD: dbpassword
+      DB_NAME: db
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    volumes:
+      - .:/app
+    command: >
+      sh -c "yarn typeorm:migration:run && npm run start:prod"
+
+  postgres:
+    image: postgres
+    container_name: color-service
+    environment:
+      POSTGRES_USER: dbuser
+      POSTGRES_PASSWORD: dbpassword
+      POSTGRES_DB: db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

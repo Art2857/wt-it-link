@@ -1,0 +1,16 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Color {
+  id: Float!
+  c_name: String!
+  c_hex: String
+  c_rgb: String
+}
+
+type Query {
+  colors: [Color!]!
+  colorsPaginated(page: Float!, limit: Float!): [Color!]!
+  colorByName(name: String!): Color
+}
